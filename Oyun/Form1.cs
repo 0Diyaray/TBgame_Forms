@@ -1,4 +1,6 @@
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Oyun
 {
@@ -7,7 +9,6 @@ namespace Oyun
 		Creature sam = new Creature();
 		Creature goblin = new Creature();
 		int stor = 0;
-
 		public Form1()
 		{
 			InitializeComponent();
@@ -63,12 +64,12 @@ namespace Oyun
 			{
 				if (stor < 10)
 				{
-					Story.Texts(label1);
+					label3.Text = "Out of potions";
 					stor += 1;
 				}
 				else if (stor == 10)
 				{
-					Story.Texts2(label1);
+					label3.Text = "Out of potions!!!";
 				}
 			}
 		}
@@ -97,19 +98,6 @@ namespace Oyun
 			Random rast = new Random();
 			int hasar = rast.Next(1*damage_coefficent, 10*damage_coefficent);
 			return hasar;
-		}
-	}
-	public class Story
-	{
-		public static string Texts(Label label)
-		{
-			label.Text = "ÝKSÝRÝN KALMADI";
-			return label.Text;
-		}
-		public static string Texts2(Label label)
-		{
-			label.Text = "ÝKSÝRÝN KALMADI!!!";
-			return label.Text;
 		}
 	}
 }
