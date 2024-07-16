@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			button1 = new Button();
 			label1 = new Label();
@@ -35,8 +36,11 @@
 			pictureBox1 = new PictureBox();
 			pictureBox2 = new PictureBox();
 			label3 = new Label();
+			bindingSource1 = new BindingSource(components);
+			Levelbutton = new Button();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+			((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
 			SuspendLayout();
 			// 
 			// button1
@@ -100,12 +104,23 @@
 			label3.TextAlign = ContentAlignment.MiddleCenter;
 			label3.Click += label3_Click;
 			// 
+			// Levelbutton
+			// 
+			Levelbutton.Location = new Point(281, 69);
+			Levelbutton.Name = "button2";
+			Levelbutton.Size = new Size(147, 60);
+			Levelbutton.TabIndex = 6;
+			Levelbutton.Text = "Level Up";
+			Levelbutton.UseVisualStyleBackColor = true;
+			Levelbutton.Click += Levelbutton_Click;
+			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.Control;
 			ClientSize = new Size(800, 450);
+			Controls.Add(Levelbutton);
 			Controls.Add(label3);
 			Controls.Add(pictureBox2);
 			Controls.Add(pictureBox1);
@@ -117,6 +132,7 @@
 			Load += Form1_Load;
 			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
 			((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+			((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -129,5 +145,7 @@
 		private PictureBox pictureBox1;
 		private PictureBox pictureBox2;
 		private Label label3;
+		private BindingSource bindingSource1;
+		private Button Levelbutton;
 	}
 }
