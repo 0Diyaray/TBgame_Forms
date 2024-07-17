@@ -1,3 +1,4 @@
+using System.Diagnostics.Eventing.Reader;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -30,51 +31,39 @@ namespace Oyun
 				control.Enabled = false;
 			}
 		}
-		private void button1_Click(object sender, EventArgs e)
+		private async void attackbutton_Click(object sender, EventArgs e)
 		{
-			goblin.Health -= sam.attack();
+			int damagedone = sam.damagepower();
+			goblin.Health -= damagedone;
+			mainlabel.Text = "-" + Convert.ToString(damagedone);
 			if (goblin.Health <= 0)
 			{
-				label3.Text = "KAZANDIN";
+				mainlabel.Text = "KAZANDIN";
 				DisableControls();
 			}
 			else
 			{
-				label2.Text = Convert.ToString(goblin.Health)+" HP "+"Level:"+goblin.Level;
+				label2.Text = Convert.ToString(goblin.Health) + " HP " + "Level:" + goblin.Level;
 			}
-			sam.Health -= goblin.attack();
+			await Task.Delay(4000);
+			int damagetaken = goblin.damagepower();
+			sam.Health -= damagetaken;
+			mainlabel.Text = "-" + Convert.ToString(damagetaken);
 			if (sam.Health <= 0)
 			{
-				label3.Text = "KAYBETTÝN";
+				mainlabel.Text = "KAYBETTÝN";
 				DisableControls();
 			}
 			else
 			{
-				label1.Text = Convert.ToString(sam.Health)+" HP " + "Level:" + sam.Level;
+				label1.Text = Convert.ToString(sam.Health) + " HP " + "Level:" + sam.Level;
 			}
-			
+
 		}
 
 		private void label1_Click(object sender, EventArgs e)
 		{
-			if (sam.Health_Potion == true)
-			{
-				sam.Health += 50;
-				sam.Health_Potion = false;
-				label1.Text = Convert.ToString(sam.Health);
-			}
-			else
-			{
-				if (stor < 10)
-				{
-					label3.Text = "Out of potions";
-					stor += 1;
-				}
-				else if (stor == 10)
-				{
-					label3.Text = "Out of potions!!!";
-				}
-			}
+			
 		}
 		private void label2_Click(object sender, EventArgs e)
 		{
@@ -93,8 +82,40 @@ namespace Oyun
 
 		private void Levelbutton_Click(object sender, EventArgs e)
 		{
-			sam.Levelup();
+			sam.Level += 1;
 			label1.Text = Convert.ToString(sam.Health) + " HP " + "Level:" + sam.Level;
+		}
+
+		private void defensebutton_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void damagetaken_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void health_potion_button_Click(object sender, EventArgs e)
+		{
+			if (sam.Health_Potion == true)
+			{
+				sam.Health += 50;
+				sam.Health_Potion = false;
+				label1.Text = Convert.ToString(sam.Health);
+			}
+			else
+			{
+				if (stor < 10)
+				{
+					health_potion_button.Text = "Out of potions";
+					stor += 1;
+				}
+				else if (stor == 10)
+				{
+					health_potion_button.Text = "Out of potions!!!";
+				}
+			}
 		}
 	}
 	public class Creature
@@ -103,16 +124,20 @@ namespace Oyun
 		public int Health;
 		public int Level;
 		public bool Health_Potion;
-		public int attack()
+		public bool defense;
+		public int damagepower()
 		{
 			Random rast = new Random();
-			int hasar = rast.Next(1 * (Power*Level / 10), (10 * (Power*Level / 10)));
-			return hasar;
+			if (defense)
+			{
+				int damage = rast.Next(1 * (Power * Level / 1), (5 * (Power * Level / 10)));
+				return damage;
+			}
+			else
+			{
+				int damage = rast.Next(1 * (Power * Level / 10), (10 * (Power * Level / 10)));
+				return damage;
+			}
 		}
-		public void Levelup()
-		{
-			Level += 1;
-		}
-
 	}
 }

@@ -30,28 +30,30 @@
 		{
 			components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-			button1 = new Button();
+			attackbutton = new Button();
 			label1 = new Label();
 			label2 = new Label();
 			pictureBox1 = new PictureBox();
 			pictureBox2 = new PictureBox();
-			label3 = new Label();
+			mainlabel = new Label();
 			bindingSource1 = new BindingSource(components);
 			Levelbutton = new Button();
+			defensebutton = new Button();
+			health_potion_button = new Button();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
 			((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
 			SuspendLayout();
 			// 
-			// button1
+			// attackbutton
 			// 
-			button1.Location = new Point(281, 362);
-			button1.Name = "button1";
-			button1.Size = new Size(147, 76);
-			button1.TabIndex = 0;
-			button1.Text = "Attack";
-			button1.UseVisualStyleBackColor = true;
-			button1.Click += button1_Click;
+			attackbutton.Location = new Point(281, 362);
+			attackbutton.Name = "attackbutton";
+			attackbutton.Size = new Size(147, 76);
+			attackbutton.TabIndex = 0;
+			attackbutton.Text = "Attack";
+			attackbutton.UseVisualStyleBackColor = true;
+			attackbutton.Click += attackbutton_Click;
 			// 
 			// label1
 			// 
@@ -86,7 +88,7 @@
 			// pictureBox2
 			// 
 			pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-			pictureBox2.Location = new Point(12, 78);
+			pictureBox2.Location = new Point(12, 82);
 			pictureBox2.Name = "pictureBox2";
 			pictureBox2.Size = new Size(253, 246);
 			pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -94,25 +96,45 @@
 			pictureBox2.TabStop = false;
 			pictureBox2.Click += pictureBox2_Click;
 			// 
-			// label3
+			// mainlabel
 			// 
-			label3.Font = new Font("Segoe UI", 20F);
-			label3.Location = new Point(271, 177);
-			label3.Name = "label3";
-			label3.Size = new Size(178, 55);
-			label3.TabIndex = 5;
-			label3.TextAlign = ContentAlignment.MiddleCenter;
-			label3.Click += label3_Click;
+			mainlabel.Font = new Font("Segoe UI", 20F);
+			mainlabel.Location = new Point(271, 181);
+			mainlabel.Name = "mainlabel";
+			mainlabel.Size = new Size(178, 55);
+			mainlabel.TabIndex = 5;
+			mainlabel.TextAlign = ContentAlignment.MiddleCenter;
+			mainlabel.Click += label3_Click;
 			// 
 			// Levelbutton
 			// 
 			Levelbutton.Location = new Point(281, 69);
-			Levelbutton.Name = "button2";
+			Levelbutton.Name = "Levelbutton";
 			Levelbutton.Size = new Size(147, 60);
 			Levelbutton.TabIndex = 6;
 			Levelbutton.Text = "Level Up";
 			Levelbutton.UseVisualStyleBackColor = true;
 			Levelbutton.Click += Levelbutton_Click;
+			// 
+			// defensebutton
+			// 
+			defensebutton.Location = new Point(281, 247);
+			defensebutton.Name = "defensebutton";
+			defensebutton.Size = new Size(147, 66);
+			defensebutton.TabIndex = 7;
+			defensebutton.Text = "Defense";
+			defensebutton.UseVisualStyleBackColor = true;
+			defensebutton.Click += defensebutton_Click;
+			// 
+			// health_potion_button
+			// 
+			health_potion_button.Location = new Point(12, 362);
+			health_potion_button.Name = "health_potion_button";
+			health_potion_button.Size = new Size(73, 48);
+			health_potion_button.TabIndex = 8;
+			health_potion_button.Text = "Health Potion";
+			health_potion_button.UseVisualStyleBackColor = true;
+			health_potion_button.Click += health_potion_button_Click;
 			// 
 			// Form1
 			// 
@@ -120,13 +142,15 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.Control;
 			ClientSize = new Size(800, 450);
+			Controls.Add(health_potion_button);
+			Controls.Add(defensebutton);
 			Controls.Add(Levelbutton);
-			Controls.Add(label3);
+			Controls.Add(mainlabel);
 			Controls.Add(pictureBox2);
 			Controls.Add(pictureBox1);
 			Controls.Add(label2);
 			Controls.Add(label1);
-			Controls.Add(button1);
+			Controls.Add(attackbutton);
 			Name = "Form1";
 			Text = "OYON";
 			Load += Form1_Load;
@@ -139,13 +163,15 @@
 
 		#endregion
 
-		private Button button1;
+		private Button attackbutton;
 		private Label label1;
 		private Label label2;
 		private PictureBox pictureBox1;
 		private PictureBox pictureBox2;
-		private Label label3;
+		private Label mainlabel;
 		private BindingSource bindingSource1;
 		private Button Levelbutton;
+		private Button defensebutton;
+		private Button health_potion_button;
 	}
 }
