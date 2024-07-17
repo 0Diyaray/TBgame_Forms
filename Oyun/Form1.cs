@@ -24,41 +24,40 @@ namespace Oyun
 			goblin.Level = 1;
 			sam.Health_Potion = true;
 		}
-		private void DisableControls()
+		private void DisableControls(bool x)
 		{
 			foreach (Control control in Controls)
 			{
-				control.Enabled = false;
+				control.Enabled= x;
 			}
 		}
 		private async void attackbutton_Click(object sender, EventArgs e)
 		{
-			int damagedone = sam.damagepower();
-			goblin.Health -= damagedone;
-			mainlabel.Text = "-" + Convert.ToString(damagedone);
+			sam.attack(goblin);
+			mainlabel.Text = "-" + Convert.ToString(sam.attack_damage);
 			if (goblin.Health <= 0)
 			{
 				mainlabel.Text = "KAZANDIN";
-				DisableControls();
+				DisableControls(false);
 			}
 			else
 			{
 				label2.Text = Convert.ToString(goblin.Health) + " HP " + "Level:" + goblin.Level;
+				DisableControls(false);
+				await Task.Delay(2000);
+				goblin.attack(sam);
+				mainlabel.Text = "-" + Convert.ToString(goblin.attack_damage);
+				if (sam.Health <= 0)
+				{
+					mainlabel.Text = "KAYBETTÝN";
+					DisableControls(false);
+				}
+				else
+				{
+					label1.Text = Convert.ToString(sam.Health) + " HP " + "Level:" + sam.Level;
+					DisableControls(true);
+				}
 			}
-			await Task.Delay(4000);
-			int damagetaken = goblin.damagepower();
-			sam.Health -= damagetaken;
-			mainlabel.Text = "-" + Convert.ToString(damagetaken);
-			if (sam.Health <= 0)
-			{
-				mainlabel.Text = "KAYBETTÝN";
-				DisableControls();
-			}
-			else
-			{
-				label1.Text = Convert.ToString(sam.Health) + " HP " + "Level:" + sam.Level;
-			}
-
 		}
 
 		private void label1_Click(object sender, EventArgs e)
@@ -86,9 +85,24 @@ namespace Oyun
 			label1.Text = Convert.ToString(sam.Health) + " HP " + "Level:" + sam.Level;
 		}
 
-		private void defensebutton_Click(object sender, EventArgs e)
+		private async void defensebutton_Click(object sender, EventArgs e)
 		{
-
+			sam.defense = true;
+			DisableControls(false);
+			await Task.Delay(2000);
+			goblin.attack(sam);
+			mainlabel.Text = "-" + Convert.ToString(goblin.attack_damage);
+			if (sam.Health <= 0)
+			{
+				mainlabel.Text = "KAYBETTÝN";
+				DisableControls(false);
+			}
+			else
+			{
+				label1.Text = Convert.ToString(sam.Health) + " HP " + "Level:" + sam.Level;
+				DisableControls(true);
+			}
+			sam.defense = false;
 		}
 
 		private void damagetaken_Click(object sender, EventArgs e)
@@ -125,18 +139,21 @@ namespace Oyun
 		public int Level;
 		public bool Health_Potion;
 		public bool defense;
-		public int damagepower()
+		public int attack_damage;
+		public void attack(Creature enemy)
 		{
 			Random rast = new Random();
-			if (defense)
+			if (enemy.defense)
 			{
-				int damage = rast.Next(1 * (Power * Level / 1), (5 * (Power * Level / 10)));
-				return damage;
+				int damage = rast.Next(1 * (Power * Level)/ 10, (5 * (Power * Level / 10)));
+				enemy.Health -= damage;
+				attack_damage = damage;
 			}
 			else
 			{
-				int damage = rast.Next(1 * (Power * Level / 10), (10 * (Power * Level / 10)));
-				return damage;
+				int damage = rast.Next(2 * (Power * Level / 10), (10 * (Power * Level / 10)));
+				enemy.Health -= damage;
+				attack_damage = damage;
 			}
 		}
 	}
