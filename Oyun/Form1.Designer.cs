@@ -37,7 +37,7 @@
 			pictureBox2 = new PictureBox();
 			mainlabel = new Label();
 			bindingSource1 = new BindingSource(components);
-			Levelbutton = new Button();
+			Superbutton = new Button();
 			defensebutton = new Button();
 			health_potion_button = new Button();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -106,15 +106,15 @@
 			mainlabel.TextAlign = ContentAlignment.MiddleCenter;
 			mainlabel.Click += label3_Click;
 			// 
-			// Levelbutton
+			// Superbutton
 			// 
-			Levelbutton.Location = new Point(281, 69);
-			Levelbutton.Name = "Levelbutton";
-			Levelbutton.Size = new Size(147, 60);
-			Levelbutton.TabIndex = 6;
-			Levelbutton.Text = "Level Up";
-			Levelbutton.UseVisualStyleBackColor = true;
-			Levelbutton.Click += Levelbutton_Click;
+			Superbutton.Location = new Point(281, 69);
+			Superbutton.Name = "Superbutton";
+			Superbutton.Size = new Size(147, 60);
+			Superbutton.TabIndex = 6;
+			Superbutton.Text = "Super";
+			Superbutton.UseVisualStyleBackColor = true;
+			Superbutton.Click += Superbutton_Click;
 			// 
 			// defensebutton
 			// 
@@ -144,7 +144,7 @@
 			ClientSize = new Size(800, 450);
 			Controls.Add(health_potion_button);
 			Controls.Add(defensebutton);
-			Controls.Add(Levelbutton);
+			Controls.Add(Superbutton);
 			Controls.Add(mainlabel);
 			Controls.Add(pictureBox2);
 			Controls.Add(pictureBox1);
@@ -170,7 +170,7 @@
 		private PictureBox pictureBox2;
 		private Label mainlabel;
 		private BindingSource bindingSource1;
-		private Button Levelbutton;
+		private Button Superbutton;
 		private Button defensebutton;
 		private Button health_potion_button;
 	}

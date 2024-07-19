@@ -18,10 +18,10 @@ namespace Oyun
 		{
 			sam.Power = 10;
 			sam.Health = 100;
-			sam.Level = 1;
+			sam.Super = 1;
 			goblin.Power = 10;
 			goblin.Health = 100;
-			goblin.Level = 1;
+			goblin.Super = 1;
 			sam.Health_Potion = true;
 		}
 		private void DisableControls(bool x)
@@ -31,10 +31,11 @@ namespace Oyun
 				control.Enabled= x;
 			}
 		}
-		private async void attackbutton_Click(object sender, EventArgs e)
+		private async void attackbutton_Click(object sender, EventArgs e,int Superx = 1)
 		{
-			sam.attack(goblin);
+			sam.attack(goblin,Superx);
 			mainlabel.Text = "-" + Convert.ToString(sam.attack_damage);
+			Superbutton.Text = Convert.ToString(sam.Super) + " Super Power";
 			if (goblin.Health <= 0)
 			{
 				mainlabel.Text = "KAZANDIN";
@@ -42,9 +43,9 @@ namespace Oyun
 			}
 			else
 			{
-				label2.Text = Convert.ToString(goblin.Health) + " HP " + "Level:" + goblin.Level;
+				label2.Text = Convert.ToString(goblin.Health) + " HP ";
 				DisableControls(false);
-				await Task.Delay(2000);
+				await Task.Delay(1000);
 				goblin.attack(sam);
 				mainlabel.Text = "-" + Convert.ToString(goblin.attack_damage);
 				if (sam.Health <= 0)
@@ -54,7 +55,7 @@ namespace Oyun
 				}
 				else
 				{
-					label1.Text = Convert.ToString(sam.Health) + " HP " + "Level:" + sam.Level;
+					label1.Text = Convert.ToString(sam.Health) + " HP ";
 					DisableControls(true);
 				}
 			}
@@ -79,17 +80,25 @@ namespace Oyun
 
 		}
 
-		private void Levelbutton_Click(object sender, EventArgs e)
+		private void Superbutton_Click(object sender, EventArgs e)
 		{
-			sam.Level += 1;
-			label1.Text = Convert.ToString(sam.Health) + " HP " + "Level:" + sam.Level;
+			if (sam.Super == 3)
+			{
+				attackbutton_Click(sender,e,10);
+				attackbutton.PerformClick();
+				sam.Super = 1;
+			}
+			else
+			{
+				Superbutton.Text = "You dont have 3 Super Power";
+			}
 		}
 
 		private async void defensebutton_Click(object sender, EventArgs e)
 		{
 			sam.defense = true;
 			DisableControls(false);
-			await Task.Delay(2000);
+			await Task.Delay(1000);
 			goblin.attack(sam);
 			mainlabel.Text = "-" + Convert.ToString(goblin.attack_damage);
 			if (sam.Health <= 0)
@@ -99,10 +108,12 @@ namespace Oyun
 			}
 			else
 			{
-				label1.Text = Convert.ToString(sam.Health) + " HP " + "Level:" + sam.Level;
+				label1.Text = Convert.ToString(sam.Health) + " HP ";
 				DisableControls(true);
 			}
 			sam.defense = false;
+			Superbutton.Text = Convert.ToString(sam.Super)+" Super Power";
+
 		}
 
 		private void damagetaken_Click(object sender, EventArgs e)
@@ -136,22 +147,24 @@ namespace Oyun
 	{
 		public int Power;
 		public int Health;
-		public int Level;
+		public int Super;
 		public bool Health_Potion;
 		public bool defense;
 		public int attack_damage;
-		public void attack(Creature enemy)
+		public void attack(Creature enemy, int Super = 1)
 		{
 			Random rast = new Random();
 			if (enemy.defense)
 			{
-				int damage = rast.Next(1 * (Power * Level)/ 10, (5 * (Power * Level / 10)));
+				int damage = rast.Next(1 * (Power * Super)/ 10, (5 * (Power * Super / 10)));
 				enemy.Health -= damage;
 				attack_damage = damage;
+				if (enemy.Super < 3) { enemy.Super += 1; }
+				else { }
 			}
 			else
 			{
-				int damage = rast.Next(2 * (Power * Level / 10), (10 * (Power * Level / 10)));
+				int damage = rast.Next(2 * (Power * Super / 10), (10 * (Power * Super / 10)));
 				enemy.Health -= damage;
 				attack_damage = damage;
 			}
