@@ -17,12 +17,6 @@ namespace Oyun
 		}
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			sam.Power = 10;
-			sam.Health = 100;
-			sam.Super = 1;
-			goblin.Power = 10;
-			goblin.Health = 100;
-			goblin.Super = 1;
 			sam.Health_Potion = true;
 		}
 		private async void  Attackcycle(int Super = 1)
@@ -153,9 +147,9 @@ namespace Oyun
 	}
 	public class Creature
 	{
-		public int Power;
-		public int Health;
-		public int Super;
+		public int Power = 10;
+		public int Health = 100;
+		public int Super = 1;
 		public bool Health_Potion;
 		public bool defense;
 		public int attack_damage;
