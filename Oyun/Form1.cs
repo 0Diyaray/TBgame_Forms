@@ -32,8 +32,10 @@ namespace Oyun
 			Superbutton.Text = Convert.ToString(sam.Super) + " Super Power";
 			if (goblin.Health <= 0)
 			{
-				mainlabel.Text = "KAZANDIN";
+				mainlabel.Text = "You Win";
 				DisableControls(false);
+				label2.Text = Convert.ToString(goblin.Health) + " HP ";
+
 			}
 			else
 			{
@@ -44,7 +46,8 @@ namespace Oyun
 				mainlabel.Text = "-" + Convert.ToString(goblin.attack_damage);
 				if (sam.Health <= 0)
 				{
-					mainlabel.Text = "KAYBETTÝN";
+					mainlabel.Text = "You Lost";
+					label1.Text = Convert.ToString(sam.Health) + " HP ";
 					DisableControls(false);
 				}
 				else
@@ -95,7 +98,7 @@ namespace Oyun
 			}
 			else
 			{
-				Superbutton.Text = "You dont have 3 Super Power";
+				Superbutton.Text = "Super power can be perform after 3 defenses";
 			}
 		}
 
