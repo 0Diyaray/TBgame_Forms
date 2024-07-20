@@ -1,5 +1,6 @@
 using System.Diagnostics.Eventing.Reader;
 using System.Runtime.CompilerServices;
+using System.Transactions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -24,16 +25,9 @@ namespace Oyun
 			goblin.Super = 1;
 			sam.Health_Potion = true;
 		}
-		private void DisableControls(bool x)
+		private async void  Attackcycle(int Super = 1)
 		{
-			foreach (Control control in Controls)
-			{
-				control.Enabled= x;
-			}
-		}
-		private async void attackbutton_Click(object sender, EventArgs e,int Superx = 1)
-		{
-			sam.attack(goblin,Superx);
+			sam.attack(goblin,Super);
 			mainlabel.Text = "-" + Convert.ToString(sam.attack_damage);
 			Superbutton.Text = Convert.ToString(sam.Super) + " Super Power";
 			if (goblin.Health <= 0)
@@ -60,6 +54,17 @@ namespace Oyun
 				}
 			}
 		}
+		private void DisableControls(bool x)
+		{
+			foreach (Control control in Controls)
+			{
+				control.Enabled= x;
+			}
+		}
+		private void attackbutton_Click(object sender, EventArgs e)
+		{
+			Attackcycle();
+		}
 
 		private void label1_Click(object sender, EventArgs e)
 		{
@@ -84,9 +89,9 @@ namespace Oyun
 		{
 			if (sam.Super == 3)
 			{
-				attackbutton_Click(sender,e,10);
-				attackbutton.PerformClick();
+				Attackcycle(3);
 				sam.Super = 1;
+				Superbutton.Text = Convert.ToString(sam.Super) + " Super Power";
 			}
 			else
 			{
